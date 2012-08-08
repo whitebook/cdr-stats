@@ -44,6 +44,8 @@ class sync_cdr_pending(PeriodicTask):
             if settings.ASTERISK_IMPORT_TYPE == 'mysql':
                 # Import from Asterisk Mysql
                 import_cdr_asterisk_mysql()
+            else:
+                import_cdr_asterisk_pgsql()
 
         elif settings.LOCAL_SWITCH_TYPE == 'freeswitch':
             # Import from Freeswitch Mongo

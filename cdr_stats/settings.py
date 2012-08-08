@@ -354,7 +354,7 @@ PREFIX_TO_IGNORE = "+,0,00,000,0000,00000,011,55555,99999"
 REALTIME_Y_AXIS_LIMIT = 100
 
 # freeswitch, asterisk : see support Switches
-LOCAL_SWITCH_TYPE = 'freeswitch'
+LOCAL_SWITCH_TYPE = 'asterisk'
 LOCAL_SWITCH_ID = 1
 
 #ASTERISK IMPORT
@@ -362,10 +362,10 @@ LOCAL_SWITCH_ID = 1
 ASTERISK_IMPORT_TYPE = 'mysql'  # Only mysql supported
 ASTERISK_PRIMARY_KEY = 'acctid'  # acctid, _id
 
-#Mysql Settings to use for import
-ASTERISK_MYSQL = {
+#sql Settings to use for import
+ASTERISK_SQL = {
     '127.0.0.1': {
-        'db_name': 'asteriskcdr',
+        'db_name': 'asterisk2',
         'table_name': 'cdr',
         'host': 'localhost',
         'user': 'root',
