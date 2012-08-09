@@ -92,7 +92,7 @@ def import_cdr_backend(shell=False,backend):
         return False
 
     #loop within the Mongo CDR Import List
-    for ipaddress in settings.CDR_BACKEND:
+    for ipaddress in settings.CDR_BACKENDS:
 
         data = chk_ipaddress(ipaddress)
         ipaddress = data['ipaddress']
@@ -101,9 +101,9 @@ def import_cdr_backend(shell=False,backend):
         #Connect to Database
         db_name = settings.CDR_BACKENDS[ipaddress]['db_name']
         table_name = settings.CDR_BACKENDS[ipaddress]['table_name']
-        user = settings.CDR_BACKEND[ipaddress]['user']
-        password = settings.CDR_BACKEND[ipaddress]['password']
-        host = settings.CDR_BACKEND[ipaddress]['host']
+        user = settings.CDR_BACKENDS[ipaddress]['user']
+        password = settings.CDR_BACKENDS[ipaddress]['password']
+        host = settings.CDR_BACKENDS[ipaddress]['host']
         try:
             connection = Database.connect(user=user, passwd=password, \
                                             db=db_name, host=host)

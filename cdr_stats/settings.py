@@ -362,6 +362,7 @@ LOCAL_SWITCH_ID = 1
 CDR_IMPORT_TYPE = 'mysql'  # Only mysql supported
 CDR_PRIMARY_KEY = 'acctid'  # acctid, _id
 
+CDR_BACKEND = 'asterisk'
 #sql Settings to use for import
 CDR_BACKENDS = {
     '127.0.0.1': {
