@@ -14,7 +14,8 @@
 # Arezqui Belaid <info@star2billing.com>
 #
 from django.core.management.base import BaseCommand
-from cdr.import_cdr_asterisk_mysql import import_cdr_asterisk_mysql
+from cdr.import_cdr_asterisk_mysql import import_cdr_asterisk
+
 from cdr.import_cdr_freeswitch_mongodb import apply_index
 from optparse import make_option
 

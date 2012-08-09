@@ -12,7 +12,15 @@
 # Arezqui Belaid <info@star2billing.com>
 #
 from django.conf import settings
-import MySQLdb as Database
+
+if settings.CDR_IMPORT_TYPE == 'mysql':
+    try:
+        import MySQLdb as Database
+    except:
+        pass    
+else:
+    import psycopg2 as Database
+    
 from cdr.models import CDR_TYPE
 from cdr.import_cdr_freeswitch_mongodb import apply_index,\
                                               chk_ipaddress,\
@@ -71,7 +79,7 @@ def print_shell(shell, message):
         print message
 
 
-def import_cdr_asterisk_mysql(shell=False):
+def import_cdr_backend(shell=False,backend):
     #TODO : dont use the args here
     # Browse settings.ASTERISK_MYSQL and for each IP
     # check if the IP exist in our Switch objects if it does we will
@@ -84,18 +92,18 @@ def import_cdr_asterisk_mysql(shell=False):
         return False
 
     #loop within the Mongo CDR Import List
-    for ipaddress in settings.ASTERISK_MYSQL:
+    for ipaddress in settings.CDR_BACKEND:
 
         data = chk_ipaddress(ipaddress)
         ipaddress = data['ipaddress']
         switch = data['switch']
 
-        #Connect on Mysql Database
-        db_name = settings.ASTERISK_MYSQL[ipaddress]['db_name']
-        table_name = settings.ASTERISK_MYSQL[ipaddress]['table_name']
-        user = settings.ASTERISK_MYSQL[ipaddress]['user']
-        password = settings.ASTERISK_MYSQL[ipaddress]['password']
-        host = settings.ASTERISK_MYSQL[ipaddress]['host']
+        #Connect to Database
+        db_name = settings.CDR_BACKENDS[ipaddress]['db_name']
+        table_name = settings.CDR_BACKENDS[ipaddress]['table_name']
+        user = settings.CDR_BACKEND[ipaddress]['user']
+        password = settings.CDR_BACKEND[ipaddress]['password']
+        host = settings.CDR_BACKEND[ipaddress]['host']
         try:
             connection = Database.connect(user=user, passwd=password, \
                                             db=db_name, host=host)
@@ -105,7 +113,7 @@ def import_cdr_asterisk_mysql(shell=False):
             #to fetch on 1st cursor
             cursor_updated = connection.cursor()
         except Exception, e:
-            sys.stderr.write("Could not connect to Mysql: %s - %s" % \
+            sys.stderr.write("Could not connect to Database: %s - %s" % \
                                                             (e, ipaddress))
             sys.exit(1)
 
@@ -243,3 +251,4 @@ def import_cdr_asterisk_mysql(shell=False):
 
         print_shell(shell, "Import on Switch(%s) - Record(s) imported:%d" % \
                             (ipaddress, count_import))
+    

@@ -35,9 +35,9 @@ DATABASES = {
         # Add 'postgresql_psycopg2','postgresql','mysql','sqlite3','oracle'
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         # Or path to database file if using sqlite3.
-        'NAME': 'cdr_stats_psql',
-        'USER': 'postgres',       # Not used with sqlite3.
-        'PASSWORD': 'postgres',   # Not used with sqlite3.
+        'NAME': 'cdrstats',
+        'USER': 'cdruser',       # Not used with sqlite3.
+        'PASSWORD': 'passw0rd',   # Not used with sqlite3.
         'HOST': 'localhost',      # Set to empty string for localhost.
                                   # Not used with sqlite3.
         'PORT': '',               # Set to empty string for default.
@@ -357,13 +357,13 @@ REALTIME_Y_AXIS_LIMIT = 100
 LOCAL_SWITCH_TYPE = 'asterisk'
 LOCAL_SWITCH_ID = 1
 
-#ASTERISK IMPORT
+#CDR IMPORT
 #===============
-ASTERISK_IMPORT_TYPE = 'mysql'  # Only mysql supported
-ASTERISK_PRIMARY_KEY = 'acctid'  # acctid, _id
+CDR_IMPORT_TYPE = 'mysql'  # Only mysql supported
+CDR_PRIMARY_KEY = 'acctid'  # acctid, _id
 
 #sql Settings to use for import
-ASTERISK_SQL = {
+CDR_BACKENDS = {
     '127.0.0.1': {
         'db_name': 'asterisk2',
         'table_name': 'cdr',
